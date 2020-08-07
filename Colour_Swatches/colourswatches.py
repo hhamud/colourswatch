@@ -8,7 +8,7 @@ import math
 
 class IColourSwatchDebug():
     
-    def __init__(self, width, height, topLeftColour=None, topRightColour=None, BottomLeftColour=None, bottomRightColour=None):
+    def __init__(self, width, height, topLeftColour, topRightColour, BottomLeftColour=None, bottomRightColour=None):
         self.width = width
         self.height = height
         self.topLeftColour = topLeftColour
@@ -112,7 +112,7 @@ class IColourSwatchDebug():
 
 
 if __name__ == "__main__":
-    c1 = IColourSwatchDebug(100,100,65535, 0, 0, 65535)
+    c1 = IColourSwatchDebug(100,100,65535, 0)
     c1.createColourSwatch()
     
 

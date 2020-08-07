@@ -1,6 +1,9 @@
 import unittest
+import colourswatches
 
 class TestColourSwatch(unittest.TestCase):
 
-    def test_limit(self):
-        self.assert
+    def test_createColourSwatch(self):
+        result = 
+
+    
