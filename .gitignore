@@ -4,3 +4,4 @@ motilent-env
 .vscode
 __pycache__
 *.in
+.png
