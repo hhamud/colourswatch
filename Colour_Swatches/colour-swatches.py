@@ -1,6 +1,5 @@
 from PIL import Image
 import numpy as np
-import itertools
 import math
 
 
@@ -96,16 +95,15 @@ class IColourSwatchDebug():
         Bottom_right_array = np.array(self.BottomRight_RGB565_TO_RGB888())
 
 
-
+    
         for i in range(0, pixel_width):
-            pixel_width = self.width
-            numpy_array[i:,:] = Bottom_left_array + (i/(pixel_width-1))*(Bottom_right_array-Bottom_left_array)
-            numpy_array[:,i:] = Top_left_array + (i/(pixel_width-1))*(Top_right_array-Top_left_array)
-        
+            for j in range(0, pixel_width):
+                pixel_width = self.width
+                numpy_array[i:i+1,j:j+1] = Top_left_array * (1-(i/(pixel_width-1)))*(1-(j/(pixel_width-1))) + Bottom_left_array * (i/(pixel_width-1)) * (1-(j/(pixel_width-1))) + Top_right_array * (1-(i/(pixel_width-1))) * (j/(pixel_width-1)) + Bottom_right_array * (i/(pixel_width-1)) * (j/(pixel_width-1))
 
         numpy_image = Image.fromarray(numpy_array)
         numpy_image.save('test2.png')
-        print(numpy_array)
+       
         
 
 
@@ -114,8 +112,7 @@ class IColourSwatchDebug():
 
 
 if __name__ == "__main__":
-    c1 = IColourSwatchDebug(6,6,65535, 0, 0, 65535)
+    c1 = IColourSwatchDebug(100,100,65535, 0, 0, 65535)
     c1.createColourSwatch()
     
-
 
