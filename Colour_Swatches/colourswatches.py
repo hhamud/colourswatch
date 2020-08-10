@@ -8,13 +8,74 @@ import math
 
 class IColourSwatchDebug():
     
-    def __init__(self, width, height, topLeftColour, topRightColour, BottomLeftColour=None, bottomRightColour=None):
+    def __init__(self, width, height, topLeftColour, topRightColour, bottomLeftColour=None, bottomRightColour=None):
         self.width = width
+
+        if type(width) is not int:
+            raise TypeError("Sorry, pixel width of {} is not an integer value. Please input an integer value".format(width))
+    
+
+        if width <= 0:
+            raise ValueError("Sorry, pixel width value of {} must be greater than 0.".format(width))
+
+       
         self.height = height
+
+        if type(height) is not int:
+            raise TypeError("Sorry, pixel height of {} is not an integer value. Please input an integer value".format(height))
+
+        if height <= 0:
+            raise ValueError("Sorry, pixel heigh value of {} must be greater than 0.".format(height))
+
+
+        if height == 1 and width == 1:
+            raise ValueError("Width and Height cannot be both 1 pixel, Please input a greater range of values")
+
+
         self.topLeftColour = topLeftColour
+
+        if type(topLeftColour) is not int:
+            raise TypeError("Sorry, top left colour value of {} is not an integer value. Please input an integer value".format(topLeftColour))
+
+        if topLeftColour < 0:
+            raise ValueError("Sorry, top left colour value of {} must be greater than or equal to 0.".format(topLeftColour))
+
+        if topLeftColour > 65535:
+            raise ValueError("Sorry, top left colour value of {} must be less than 65536.".format(topLeftColour))
+
+
+
         self.topRightColour = topRightColour
-        self.BottomLeftColour = BottomLeftColour
+
+        if type(topRightColour) is not int:
+            raise TypeError("Sorry, top right colour value of {} is not an integer value. Please input an integer value".format(topRightColour))
+
+        if topRightColour < 0:
+            raise ValueError("Sorry, top right colour value of {} must be greater than or equal to 0.".format(topRightColour))
+
+        if topRightColour > 65535:
+            raise ValueError("Sorry, top right colour value of {} must be less than 65536.".format(topRightColour))
+
+
+        self.bottomLeftColour = bottomLeftColour
         self.bottomRightColour = bottomRightColour
+
+
+        if bottomLeftColour is not None and bottomRightColour is None:
+            raise ValueError("bottom right colour is missing. Please input a value for bottom right colour")
+
+
+      
+
+
+
+      
+    
+
+      
+
+      
+       
 
     def TopLeft_RGB565_TO_RGB888(self):
         R = math.trunc( self.topLeftColour / 2048 )
@@ -22,11 +83,11 @@ class IColourSwatchDebug():
         B = self.topLeftColour % 32
 
         r = (R)*8
-        g = (G)*4 
+        g = (G)*4
         b = (B)*8
      
 
-        RGB888 = [r,g,b]
+        RGB888 = np.array([r,g,b])
 
        
 
@@ -43,7 +104,7 @@ class IColourSwatchDebug():
         g = (G)*4 
         b = (B)*8 
 
-        RGB888 = [r,g,b]
+        RGB888 = np.array([r,g,b])
 
         
 
@@ -51,9 +112,9 @@ class IColourSwatchDebug():
 
 
     def BottomLeft_RGB565_TO_RGB888(self):
-        R = math.trunc( self.BottomLeftColour / 2048 )
-        G = math.trunc( (self.BottomLeftColour % 2048 ) / 32 )
-        B = self.BottomLeftColour % 32
+        R = math.trunc( self.bottomLeftColour / 2048 )
+        G = math.trunc( (self.bottomLeftColour % 2048 ) / 32 )
+        B = self.bottomLeftColour % 32
 
         
 
@@ -61,7 +122,7 @@ class IColourSwatchDebug():
         g = (G)*4 
         b = (B)*8 
 
-        RGB888 = [r,g,b]
+        RGB888 = np.array([r,g,b])
 
         
 
@@ -78,7 +139,7 @@ class IColourSwatchDebug():
         g = (G)*4 
         b = (B)*8 
 
-        RGB888 = [r,g,b]
+        RGB888 = np.array([r,g,b])
 
     
 
@@ -88,21 +149,50 @@ class IColourSwatchDebug():
 
     def createColourSwatch(self):
         pixel_width = self.width
-        numpy_array = np.zeros([self.height, self.width, 3], dtype=np.uint8)
-        Top_left_array = np.array(self.TopLeft_RGB565_TO_RGB888())
-        Top_right_array = np.array(self.TopRight_RGB565_TO_RGB888())
-        Bottom_left_array = np.array(self.BottomLeft_RGB565_TO_RGB888())
-        Bottom_right_array = np.array(self.BottomRight_RGB565_TO_RGB888())
+        pixel_height = self.height
+        numpy_array = np.zeros([pixel_height, pixel_width, 3], dtype=np.uint8)
+        Top_left_array = self.TopLeft_RGB565_TO_RGB888()
+        Top_right_array = self.TopRight_RGB565_TO_RGB888()
+
+        if (self.bottomLeftColour and self.bottomRightColour) is not None :
+
+            if type(self.bottomLeftColour) is not int:
+                raise TypeError("Sorry, bottom left colour value of {} is not an integer value. Please input an integer value".format(self.bottomLeftColour))
+
+            if self.bottomLeftColour < 0:
+                raise ValueError("Sorry, bottom left colour value of {} must be greater than or equal to 0.".format(self.bottomLeftColour))
+
+            if self.bottomLeftColour > 65535:
+                raise ValueError("Sorry, bottom left colour value of {} must be less than 65536.".format(self.bottomLeftColour))
 
 
-    
-        for i in range(0, pixel_width):
-            for j in range(0, pixel_width):
-                pixel_width = self.width
-                numpy_array[i:i+1,j:j+1] = Top_left_array * (1-(i/(pixel_width-1)))*(1-(j/(pixel_width-1))) + Bottom_left_array * (i/(pixel_width-1)) * (1-(j/(pixel_width-1))) + Top_right_array * (1-(i/(pixel_width-1))) * (j/(pixel_width-1)) + Bottom_right_array * (i/(pixel_width-1)) * (j/(pixel_width-1))
+            if type(self.bottomRightColour) is not int:
+                raise TypeError("Sorry, bottom right value of {} is not an integer value. Please input an integer value".format(self.bottomRightColour))
+
+            if self.bottomRightColour  < 0:
+                raise ValueError("Sorry, bottom right colour value of {} must be greater than or equal to 0.".format(self.bottomRightColour))
+
+            if self.bottomRightColour > 65535:
+                raise ValueError("Sorry, bottom right colour value of {} must be less than 65536.".format(self.bottomRightColour))
+
+
+
+            Bottom_left_array = self.BottomLeft_RGB565_TO_RGB888()
+            Bottom_right_array = self.BottomRight_RGB565_TO_RGB888()
+            for i in range(0, pixel_height):
+                for j in range(0, pixel_width):
+                    numpy_array[i:i+1,j:j+1] = Top_left_array * (1-(i/(pixel_height-1)))*(1-(j/(pixel_width-1))) + Bottom_left_array * (i/(pixel_height-1)) * (1-(j/(pixel_width-1))) + Top_right_array * (1-(i/(pixel_height-1))) * (j/(pixel_width-1)) + Bottom_right_array * (i/(pixel_height-1)) * (j/(pixel_width-1))
+                  
+        else:
+            for i in range(0, pixel_width):
+                numpy_array[:,i:i+1] = Top_left_array * (1-(i/(pixel_width-1))) + Top_right_array * (1-(i/(pixel_width-1))) 
+
+
 
         numpy_image = Image.fromarray(numpy_array)
-        numpy_image.save('test2.png')
+        numpy_image.save('test.png')
+        return numpy_array
+      
        
         
 
@@ -110,9 +200,4 @@ class IColourSwatchDebug():
 
 
 
-
-if __name__ == "__main__":
-    c1 = IColourSwatchDebug(100,100,65535, 0)
-    c1.createColourSwatch()
-    
 
