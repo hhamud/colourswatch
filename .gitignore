@@ -5,3 +5,4 @@ motilent-env
 __pycache__
 *.in
 .png
+.pytest_cache

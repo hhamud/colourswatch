@@ -1,0 +1,4 @@
+
+        [console_scripts]
+        colourswatch=Colour_Swatches.colourswatches:main
+         

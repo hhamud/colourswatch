@@ -1,0 +1,13 @@
+MANIFEST.in
+README.md
+setup.py
+ColourSwatches.egg-info/PKG-INFO
+ColourSwatches.egg-info/SOURCES.txt
+ColourSwatches.egg-info/dependency_links.txt
+ColourSwatches.egg-info/entry_points.txt
+ColourSwatches.egg-info/requires.txt
+ColourSwatches.egg-info/top_level.txt
+Colour_Swatches/__init__.py
+Colour_Swatches/__main__.py
+Colour_Swatches/colourswatches.py
+Colour_Swatches/test_colourswatches.py
