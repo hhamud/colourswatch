@@ -22,7 +22,7 @@ class createColourSwatch(IColourSwatchDebug):
 
 
     example call: 
-        colourswatch makeimage --width=6 --height=6 --topleftcolour=65535  --toprightcolour=0 --bottomleftcolour=65535  --bottomrightcolourcolour=0
+        colourswatch makeimage --width=6 --height=6 --topleftcolour=65535  --toprightcolour=0 --bottomleftcolour=65535  --bottomrightcolour=0
 
     makeimage command is necessary to create the colour gradient
 
@@ -30,7 +30,7 @@ class createColourSwatch(IColourSwatchDebug):
     --width=6 --height=6 --topleftcolour=65535  --toprightcolour=0
 
     These are optional arguments:
-    --bottomleftcolour=65535  --bottomrightcolourcolour=0
+    --bottomleftcolour=65535  --bottomrightcolour=0
 
     
     
