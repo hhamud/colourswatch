@@ -1,6 +1,6 @@
 ### To install the package
 
-pip install git+ssh://ggit@github.com:hhamud/motilent_code_test.git
+pip install git+ssh://git@github.com:hhamud/motilent_code_test.git
 
 
 
