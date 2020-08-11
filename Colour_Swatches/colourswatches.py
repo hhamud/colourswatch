@@ -15,6 +15,27 @@ class IColourSwatchDebug(ABC):
 
 
 class createColourSwatch(IColourSwatchDebug):
+
+    """
+    a python programme that creates the pixel colour gradients and saves the output of this gradient as a png file with
+    the name of the inputs.
+
+
+    example call: 
+        colourswatch makeimage --width=6 --height=6 --topleftcolour=65535  --toprightcolour=0 --bottomleftcolour=65535  --bottomrightcolourcolour=0
+
+    makeimage command is necessary to create the colour gradient
+
+    These are all necessary arguments and the program cannot run without it:
+    --width=6 --height=6 --topleftcolour=65535  --toprightcolour=0
+
+    These are optional arguments:
+    --bottomleftcolour=65535  --bottomrightcolourcolour=0
+
+    
+    
+    
+    """
     
     def __init__(self, width, height, topleftcolour, toprightcolour, bottomleftcolour=None, bottomrightcolour=None):
         self.width = width
@@ -76,6 +97,7 @@ class createColourSwatch(IColourSwatchDebug):
    
     def RGB565_to_RGB888(self, topleftcolour=0, toprightcolour=0, bottomleftcolour=0, bottomrightcolour=0):
         k = topleftcolour or toprightcolour or bottomleftcolour or bottomrightcolour
+
         R = math.trunc( k / 2048 )
         G = math.trunc( ( k % 2048) / 32 )
         B = k % 32
@@ -94,7 +116,7 @@ class createColourSwatch(IColourSwatchDebug):
        
 
     
-    def colourswatch(self):
+    def array_algorithm(self):
         pixel_width = self.width
         pixel_height = self.height
         numpy_array = np.zeros([pixel_height, pixel_width, 3], dtype=np.uint8)
@@ -134,12 +156,15 @@ class createColourSwatch(IColourSwatchDebug):
             for i in range(0, pixel_width):
                 numpy_array[:,i:i+1] = Top_left_array * (1-(i/(pixel_width-1))) + Top_right_array * (1-(i/(pixel_width-1))) 
 
-        
-        
 
-        numpy_image = Image.fromarray(numpy_array)
-        numpy_image.save('test.png')
+        return numpy_array
         
+        
+    def makeimage(self):
+        image_input = self.array_algorithm()
+        numpy_image = Image.fromarray(image_input)
+        numpy_image.save('{}{}.png'.format(self.topleftcolour, self.toprightcolour))
+    
 
 
 def main():
@@ -152,8 +177,7 @@ def main():
 
 
 if __name__ == "__main__":
-    c1 = createColourSwatch(6,6,65535,0,0,65535)
-    c1.colourswatch()
+    main()
    
 
 
