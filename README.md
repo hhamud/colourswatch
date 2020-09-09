@@ -1,20 +1,3 @@
-### To install the package
-
-pip install git+ssh://git@github.com/hhamud/motilent_code_test.git
-
-
-
-### what does this package contain:
-
-The package contains:
-
-1. colour gradient script
-2. colour gradient tests
-3. coverage folder of these tests
-4. setup file
-5. README
-6. package info folder
-
 
 
 ### How the programme functions:

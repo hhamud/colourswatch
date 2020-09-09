@@ -2,19 +2,11 @@ from PIL import Image
 import numpy as np
 import math
 import fire 
-from abc import ABC, abstractmethod
 
 
 
 
-
-
-class IColourSwatchDebug(ABC):
-    pass
-
-
-
-class createColourSwatch(IColourSwatchDebug):
+class createColourSwatch():
 
     """
     a python programme that creates the pixel colour gradients and saves the output of this gradient as a png file with

@@ -1,6 +1,4 @@
 *.pdf
-TODOLIST.md
-motilent-env
 .vscode
 __pycache__
 *.in
